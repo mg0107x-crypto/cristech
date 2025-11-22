@@ -1,223 +1,419 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>CrisTech - Servicios Técnicos</title>
+
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #050505;
-  color: #fff;
-  overflow-x: hidden;
+/* ----------------------------
+   BASE
+   ---------------------------- */
+:root{
+  --bg:#050505;
+  --card:#0e0e0e;
+  --muted:#888;
+  --accent:#ff1a1a;
+  --accent-2:#4da6ff;
+  --glass: rgba(255,255,255,0.03);
 }
-/* NAVBAR */
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid #ff000066;
-  z-index: 999;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background:var(--bg);
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
-header h1 {
-  margin: 0;
-  font-size: 30px;
-  font-weight: bold;
-  color: #ff1a1a;
-  text-shadow: 0 0 10px #ff0000;
+
+/* ----------------------------
+   HEADER / NAV
+   ---------------------------- */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 26px;
+  gap:16px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,0,0,0.12);
+  z-index:999;
 }
-header nav a {
-    text-decoration: none;
-    color: white;
-    padding: 6px 6px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: color 0.3s ease;
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
-header nav a:hover {
-  color: #ff2a2a;
-  text-shadow: 0 0 8px #ff0000;
+.brand .logo {
+  width:44px;
+  height:44px;
+  border-radius:8px;
+  background:linear-gradient(135deg,#2b2b2b,#111);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--accent);
+  font-weight:800;
+  font-size:18px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.6), 0 0 14px #ff000044;
 }
-/* Mobile button */
-.menu-btn {
-  display: none;
-  font-size: 32px;
-  cursor: pointer;
-  color: #fff;
+.brand h1{
+  margin:0;
+  font-size:20px;
+  color:var(--accent);
+  text-shadow:0 0 6px #ff0000;
 }
-@media (max-width: 768px) {
-  header nav {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 70%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(18px);
-    padding-top: 100px;
-    flex-direction: column;
-    text-align: center;
-    transition: 0.3s ease;
-    animation: fadeMenu 0.3s ease;
+
+/* desktop nav */
+nav {
+  display:flex;
+  align-items:center;
+  gap:18px;
+  margin-left:8px;
+  flex-wrap:nowrap;
+}
+nav a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  padding:8px 10px;
+  border-radius:6px;
+  transition:all .2s ease;
+  font-size:15px;
+  white-space:nowrap;
+}
+nav a:hover{ color:var(--accent); text-shadow:0 0 8px #ff0000; transform:translateY(-2px) }
+
+/* language flags container */
+.langs {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-left:14px;
+}
+.langs img{
+  width:22px;
+  height:auto;
+  cursor:pointer;
+  border-radius:4px;
+  border:1px solid rgba(255,255,255,0.06);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.langs img:hover{ transform:translateY(-3px); box-shadow:0 6px 18px rgba(255,0,0,0.12) }
+
+/* hamburger (mobile) */
+.menu-btn{
+  display:none;
+  font-size:26px;
+  background:transparent;
+  border:0;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* ----------------------------
+   HERO
+   ---------------------------- */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:110px 20px 80px;
+  background:linear-gradient(140deg,#000,#1a0000 40%, #000015);
+  background-size:200% 200%;
+  animation:bgMove 10s ease-in-out infinite alternate;
+}
+@keyframes bgMove{ from{background-position:0% 0%} to{background-position:100% 100%} }
+.hero h2{ font-size:44px; margin:0 0 12px; color:var(--accent); text-shadow:0 0 12px #ff0000 }
+.hero p{ font-size:18px; margin:0 auto; max-width:720px; opacity:.9 }
+
+/* ----------------------------
+   SECTION / CARDS
+   ---------------------------- */
+.container{ max-width:1180px; margin:0 auto; padding:60px 20px }
+.services h3, .testimonials h3, .pricing h3 { text-align:center; color:var(--accent-2); font-size:30px; margin-bottom:26px }
+.cards {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
+}
+.card{
+  background:var(--card);
+  border:1px solid #222;
+  padding:22px;
+  border-radius:12px;
+  transition:transform .25s ease, box-shadow .25s ease;
+  box-shadow:0 6px 18px rgba(0,0,0,0.45);
+}
+.card:hover{ transform:translateY(-8px); box-shadow:0 18px 40px rgba(255,0,0,0.06); border-color:var(--accent) }
+
+/* testimonials */
+.testi-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+
+/* pricing */
+table{ width:100%; border-collapse:collapse; margin-top:10px; }
+th, td{ padding:14px; border:1px solid #2a2a2a; text-align:left }
+th{ background:#111 }
+
+/* reveal class for scroll animation */
+.reveal{ opacity:0; transform:translateY(30px); transition: all .7s cubic-bezier(.2,.8,.2,1) }
+.reveal.active{ opacity:1; transform:none }
+
+/* ----------------------------
+   FOOTER & WHATSAPP
+   ---------------------------- */
+footer{ padding:40px 20px; text-align:center; border-top:1px solid rgba(255,255,255,0.03); margin-top:30px }
+.whatsapp{
+  position:fixed; right:20px; bottom:22px; background:#25D366; color:#fff;
+  padding:12px 16px; border-radius:40px; text-decoration:none; font-weight:700; box-shadow:0 8px 26px rgba(37,211,102,0.14);
+}
+
+/* ----------------------------
+   RESPONSIVE
+   ---------------------------- */
+@media (max-width:950px){
+  .hero h2{ font-size:36px }
+  nav a{ font-size:15px }
+}
+@media (max-width:780px){
+  nav{ display:none; } /* hide desktop nav */
+  .menu-btn{ display:block; }
+  /* mobile nav panel */
+  .mobile-nav{
+    position:fixed;
+    top:0; right:0;
+    width:78%;
+    max-width:360px;
+    height:100vh;
+    background:rgba(0,0,0,0.92);
+    backdrop-filter:blur(16px);
+    padding:80px 22px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    transform:translateX(110%);
+    transition:transform .32s cubic-bezier(.2,.9,.25,1);
+    z-index:998;
   }
-  header.nav-open nav { display: flex; }
-  header nav a { margin: 20px 0; font-size: 24px; }
-  .menu-btn { display: block; }
+  .mobile-nav.open{ transform:translateX(0) }
+  .mobile-nav a{ font-size:20px; color:#fff; text-decoration:none; padding:10px; border-radius:8px }
+  .mobile-lang{ display:flex; gap:12px; margin-top:8px; align-items:center }
 }
-@keyframes fadeMenu {
-  from { opacity: 0; transform: translateX(40px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-/* HERO */
-.hero {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding-top: 80px;
-  background: linear-gradient(140deg, #000000, #1a0000, #000015);
-  animation: bgMove 8s infinite alternate ease-in-out;
-}
-@keyframes bgMove {
-  from { background-position: 0 0; }
-  to { background-position: 100% 100%; }
-}
-.hero h2 {
-  font-size: 52px;
-  color: #ff1a1a;
-  text-shadow: 0 0 12px #ff0000;
-}
-.hero p {
-  font-size: 22px;
-  max-width: 650px;
-  opacity: 0.85;
-  animation: fadeUp 1s ease;
-}
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
-/* Reveal animation */
-.reveal { opacity: 0; transform: translateY(40px); transition: 0.9s ease; }
-.reveal.active { opacity: 1; transform: translateY(0); }
-/* SERVICES */
-.services { padding: 80px 20px; max-width: 1200px; margin: auto; }
-.services h3 { text-align: center; font-size: 34px; margin-bottom: 50px; color: #4da6ff; }
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-.card {
-  background: #0e0e0e;
-  border: 1px solid #222;
-  padding: 25px;
-  border-radius: 14px;
-  transition: .3s;
-  box-shadow: 0 0 10px #00000044;
-}
-.card:hover {
-  border-color: #ff2a2a;
-  box-shadow: 0 0 20px #ff000066;
-}
-/* TESTIMONIALS */
-.testimonials { background: #080808; padding: 80px 20px; }
-.testimonials h3 { text-align: center; font-size: 34px; margin-bottom: 40px; color: #ff4d4d; }
-.testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; max-width:1100px; margin:auto; }
-.testi {
-  background:#111;
-  padding:25px;
-  border-radius:14px;
-  border:1px solid #333;
-  box-shadow:0 0 10px #ff000033;
-}
-.testi strong { color:#ff4d4d; }
-/* PRICING */
-.pricing { background: #0d0d0d; padding: 80px 20px; }
-.pricing h3 { text-align:center; font-size:34px; color:#4da6ff; margin-bottom:40px; }
-table { width:90%; max-width:850px; margin:auto; border-collapse:collapse; }
-th,td { border:1px solid #333; padding:15px; }
-th { background:#111; }
-td { background:#181818; }
-/* FOOTER */
-footer { text-align:center; padding:40px; background:#000; border-top:1px solid #222; }
-footer div { margin:10px 0; font-size:18px; }
-/* WHATSAPP */
-.whatsapp { position:fixed; bottom:25px; right:25px; background:#25D366; color:white; padding:15px 20px; border-radius:50px; text-decoration:none; font-size:18px; font-weight:bold; box-shadow:0 0 10px #25D366; }
-  nav {
-    justify-content: flex-start;
-  }
+
+/* small fix so hero doesn't hide under header */
+main{ padding-top:6px }
 </style>
 </head>
+
 <body>
 <header>
-  <h1>CrisTech</h1>
-  <span class="menu-btn" onclick="toggleMenu()">☰</span>
-  <nav>
-    <a href="#servicios">Servicios</a>
-    <a href="#testimonios">Testimonios</a>
-    <a href="#precios">Precios</a>
-    <a href="#contacto">Contacto</a>
+  <div class="brand">
+    <div class="logo">CT</div>
+    <h1>CrisTech</h1>
+  </div>
+
+  <!-- desktop nav -->
+  <nav class="desktop-nav" aria-label="main navigation">
+    <a data-key="navServicios" href="#servicios">Servicios</a>
+    <a data-key="navTestimonios" href="#testimonios">Testimonios</a>
+    <a data-key="navPrecios" href="#precios">Precios</a>
+    <a data-key="navContacto" href="#contacto">Contacto</a>
+
+    <div class="langs" style="margin-left:12px">
+      <!-- small flags via CDN -->
+      <img id="flag-es" src="https://flagcdn.com/w20/es.png" alt="ES" title="Español" onclick="setLang('es')" />
+      <img id="flag-en" src="https://flagcdn.com/w20/us.png" alt="EN" title="English" onclick="setLang('en')" />
+    </div>
   </nav>
+
+  <button class="menu-btn" aria-label="Abrir menú" onclick="toggleMobile()">
+    ☰
+  </button>
 </header>
-<section class="hero">
-  <div>
-    <h2>Soluciones Técnicas Profesionales</h2>
-    <p>Formateo, instalación de Windows, drivers, software y juegos. Servicio rápido, seguro y garantizado.</p>
+
+<!-- mobile nav panel -->
+<nav id="mobileNav" class="mobile-nav" aria-hidden="true">
+  <a data-key="navServicios" href="#servicios" onclick="closeMobile()">Servicios</a>
+  <a data-key="navTestimonios" href="#testimonios" onclick="closeMobile()">Testimonios</a>
+  <a data-key="navPrecios" href="#precios" onclick="closeMobile()">Precios</a>
+  <a data-key="navContacto" href="#contacto" onclick="closeMobile()">Contacto</a>
+
+  <div class="mobile-lang" style="margin-top:12px">
+    <img src="https://flagcdn.com/w40/es.png" width="28" style="cursor:pointer" onclick="setLang('es'); closeMobile()" />
+    <img src="https://flagcdn.com/w40/us.png" width="28" style="cursor:pointer" onclick="setLang('en'); closeMobile()" />
   </div>
-</section>
-<section id="servicios" class="services reveal">
-  <h3>Servicios Disponibles</h3>
-  <div class="cards">
-    <div class="card">Formateo + Windows</div>
-    <div class="card">Instalación de drivers</div>
-    <div class="card">Optimización avanzada</div>
-    <div class="card">Instalación de software</div>
-    <div class="card">Instalación de juegos</div>
-    <div class="card">Mantenimiento completo</div>
-  </div>
-</section>
-<section id="testimonios" class="testimonials reveal">
-  <h3>Testimonios</h3>
-  <div class="testi-grid">
-    <div class="testi"><strong>Juan R.</strong><br>“Me formateó la laptop y quedó más rápida que nueva.”</div>
-    <div class="testi"><strong>Ana M.</strong><br>“Me instaló varios juegos pesados sin problemas. Full recomendado.”</div>
-    <div class="testi"><strong>Carlos T.</strong><br>“Servicio rápido, seguro y sabe lo que hace.”</div>
-  </div>
-</section>
-<section id="precios" class="pricing reveal">
-  <h3>Lista de Precios</h3>
-  <table>
-    <tr><th>Servicio</th><th>Precio (RD$)</th></tr>
-    <tr><td>Formateo + Windows + Drivers</td><td>800 - 1000</td></tr>
-    <tr><td>Instalación de juegos</td><td>150 - 300 c/u</td></tr>
-    <tr><td>Software esencial</td><td>100 - 200 c/u</td></tr>
-    <tr><td>Optimización Pro</td><td>300</td></tr>
-  </table>
-</section>
-<footer id="contacto" class="reveal">
-  <div>📱 Tel: 829-801-3484</div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div>
+      <h2 data-key="heroTitulo">Soluciones Técnicas Profesionales</h2>
+      <p data-key="heroTexto">Formateo, instalación de Windows, drivers, software y juegos. Servicio rápido, seguro y garantizado.</p>
+    </div>
+  </section>
+
+  <section id="servicios" class="container services reveal">
+    <h3 data-key="serviciosTitulo">Servicios Disponibles</h3>
+    <div class="cards">
+      <div class="card" data-key="srv1">Formateo + Windows</div>
+      <div class="card" data-key="srv2">Instalación de drivers</div>
+      <div class="card" data-key="srv3">Optimización avanzada</div>
+      <div class="card" data-key="srv4">Instalación de software</div>
+      <div class="card" data-key="srv5">Instalación de juegos</div>
+      <div class="card" data-key="srv6">Mantenimiento completo</div>
+    </div>
+  </section>
+
+  <section id="testimonios" class="testimonials reveal" style="padding:60px 20px">
+    <h3 data-key="testimoniosTitulo">Testimonios</h3>
+    <div class="testi-grid">
+      <div class="testi" data-key="testi1"><strong>Juan R.</strong><br>“Me formateó la laptop y quedó más rápida que nueva.”</div>
+      <div class="testi" data-key="testi2"><strong>Ana M.</strong><br>“Me instaló varios juegos pesados sin problemas. Full recomendado.”</div>
+      <div class="testi" data-key="testi3"><strong>Carlos T.</strong><br>“Servicio rápido, seguro y sabe lo que hace.”</div>
+    </div>
+  </section>
+
+  <section id="precios" class="pricing reveal container">
+    <h3 data-key="preciosTitulo">Lista de Precios</h3>
+    <table>
+      <tr><th data-key="thServ">Servicio</th><th data-key="thPrecio">Precio (RD$)</th></tr>
+      <tr><td data-key="pr1">Formateo + Windows + Drivers</td><td>800 - 1000</td></tr>
+      <tr><td data-key="pr2">Instalación de juegos</td><td>150 - 300 c/u</td></tr>
+      <tr><td data-key="pr3">Software esencial</td><td>100 - 200 c/u</td></tr>
+      <tr><td data-key="pr4">Optimización Pro</td><td>300</td></tr>
+    </table>
+  </section>
+</main>
+
+<footer id="contacto">
+  <div data-key="contactoTel">📱 Tel: 829-801-3484</div>
   <div>© 2025 CrisTech - Servicios Técnicos</div>
 </footer>
+
 <a class="whatsapp" href="https://wa.me/18298013484" target="_blank">WhatsApp</a>
+
 <script>
-function toggleMenu(){
-  let headerEl = document.querySelector('header');
-  headerEl.classList.toggle('nav-open');
-  document.querySelectorAll('header nav a').forEach(a => {
-    a.onclick = ()=> headerEl.classList.remove('nav-open');
+/* ----------------------------
+   i18n texts
+   ---------------------------- */
+const textos = {
+  es: {
+    navServicios:"Servicios",
+    navTestimonios:"Testimonios",
+    navPrecios:"Precios",
+    navContacto:"Contacto",
+    heroTitulo:"Soluciones Técnicas Profesionales",
+    heroTexto:"Formateo, instalación de Windows, drivers, software y juegos. Servicio rápido, seguro y garantizado.",
+    serviciosTitulo:"Servicios Disponibles",
+    srv1:"Formateo + Windows",
+    srv2:"Instalación de drivers",
+    srv3:"Optimización avanzada",
+    srv4:"Instalación de software",
+    srv5:"Instalación de juegos",
+    srv6:"Mantenimiento completo",
+    testimoniosTitulo:"Testimonios",
+    testi1:"<strong>Juan R.</strong><br>“Me formateó la laptop y quedó más rápida que nueva.”",
+    testi2:"<strong>Ana M.</strong><br>“Me instaló varios juegos pesados sin problemas. Full recomendado.”",
+    testi3:"<strong>Carlos T.</strong><br>“Servicio rápido, seguro y sabe lo que hace.”",
+    preciosTitulo:"Lista de Precios",
+    thServ:"Servicio",
+    thPrecio:"Precio (RD$)",
+    pr1:"Formateo + Windows + Drivers",
+    pr2:"Instalación de juegos",
+    pr3:"Software esencial",
+    pr4:"Optimización Pro",
+    contactoTel:"📱 Tel: 829-801-3484"
+  },
+  en: {
+    navServicios:"Services",
+    navTestimonios:"Testimonials",
+    navPrecios:"Pricing",
+    navContacto:"Contact",
+    heroTitulo:"Professional Technical Solutions",
+    heroTexto:"Formatting, Windows installation, drivers, software and games. Fast, safe and guaranteed service.",
+    serviciosTitulo:"Available Services",
+    srv1:"Format + Windows",
+    srv2:"Driver Installation",
+    srv3:"Advanced Optimization",
+    srv4:"Software Installation",
+    srv5:"Game Installation",
+    srv6:"Full Maintenance",
+    testimoniosTitulo:"Testimonials",
+    testi1:"<strong>Juan R.</strong><br>“He formatted my laptop and it became faster than new.”",
+    testi2:"<strong>Ana M.</strong><br>“Installed several heavy games without problems. Highly recommended.”",
+    testi3:"<strong>Carlos T.</strong><br>“Fast, safe, and very professional service.”",
+    preciosTitulo:"Price List",
+    thServ:"Service",
+    thPrecio:"Price (RD$)",
+    pr1:"Format + Windows + Drivers",
+    pr2:"Game Installation",
+    pr3:"Essential Software",
+    pr4:"Pro Optimization",
+    contactoTel:"📱 Phone: 829-801-3484"
+  }
+};
+
+/* apply language to all elements with data-key */
+function setLang(lang){
+  const t = textos[lang] || textos['es'];
+  document.querySelectorAll('[data-key]').forEach(el=>{
+    const key = el.getAttribute('data-key');
+    if(t[key] !== undefined){
+      el.innerHTML = t[key];
+    }
   });
+  localStorage.setItem('cristech_lang', lang);
 }
+
+/* load saved lang or default to es */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const saved = localStorage.getItem('cristech_lang') || 'es';
+  setLang(saved);
+});
+
+/* ----------------------------
+   mobile nav controls
+   ---------------------------- */
+function toggleMobile(){
+  const panel = document.getElementById('mobileNav');
+  panel.classList.toggle('open');
+  panel.setAttribute('aria-hidden', !panel.classList.contains('open'));
+}
+function closeMobile(){
+  const panel = document.getElementById('mobileNav');
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden', 'true');
+}
+
+/* close mobile nav on resize to desktop */
+window.addEventListener('resize', ()=>{
+  if(window.innerWidth > 780) closeMobile();
+});
+
+/* ----------------------------
+   reveal on scroll
+   ---------------------------- */
 function revealOnScroll(){
   document.querySelectorAll('.reveal').forEach(el=>{
-    let rect = el.getBoundingClientRect();
-    if(rect.top < window.innerHeight - 50){ el.classList.add('active'); }
+    const rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 60){
+      el.classList.add('active');
+    }
   });
 }
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
+
+/* small improvement: close mobile when clicking a nav anchor (handled inline via onclick attributes) */
 </script>
+
 </body>
 </html>
