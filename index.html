@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrisTech - Servicios Técnicos</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #050505;
+  color: #fff;
+  overflow-x: hidden;
+}
+/* NAVBAR */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #ff000066;
+  z-index: 999;
+}
+header h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: bold;
+  color: #ff1a1a;
+  text-shadow: 0 0 10px #ff0000;
+}
+header nav a {
+    text-decoration: none;
+    color: white;
+    padding: 6px 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+header nav a:hover {
+  color: #ff2a2a;
+  text-shadow: 0 0 8px #ff0000;
+}
+/* Mobile button */
+.menu-btn {
+  display: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: #fff;
+}
+@media (max-width: 768px) {
+  header nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(18px);
+    padding-top: 100px;
+    flex-direction: column;
+    text-align: center;
+    transition: 0.3s ease;
+    animation: fadeMenu 0.3s ease;
+  }
+  header.nav-open nav { display: flex; }
+  header nav a { margin: 20px 0; font-size: 24px; }
+  .menu-btn { display: block; }
+}
+@keyframes fadeMenu {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+/* HERO */
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 80px;
+  background: linear-gradient(140deg, #000000, #1a0000, #000015);
+  animation: bgMove 8s infinite alternate ease-in-out;
+}
+@keyframes bgMove {
+  from { background-position: 0 0; }
+  to { background-position: 100% 100%; }
+}
+.hero h2 {
+  font-size: 52px;
+  color: #ff1a1a;
+  text-shadow: 0 0 12px #ff0000;
+}
+.hero p {
+  font-size: 22px;
+  max-width: 650px;
+  opacity: 0.85;
+  animation: fadeUp 1s ease;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+/* Reveal animation */
+.reveal { opacity: 0; transform: translateY(40px); transition: 0.9s ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+/* SERVICES */
+.services { padding: 80px 20px; max-width: 1200px; margin: auto; }
+.services h3 { text-align: center; font-size: 34px; margin-bottom: 50px; color: #4da6ff; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+.card {
+  background: #0e0e0e;
+  border: 1px solid #222;
+  padding: 25px;
+  border-radius: 14px;
+  transition: .3s;
+  box-shadow: 0 0 10px #00000044;
+}
+.card:hover {
+  border-color: #ff2a2a;
+  box-shadow: 0 0 20px #ff000066;
+}
+/* TESTIMONIALS */
+.testimonials { background: #080808; padding: 80px 20px; }
+.testimonials h3 { text-align: center; font-size: 34px; margin-bottom: 40px; color: #ff4d4d; }
+.testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; max-width:1100px; margin:auto; }
+.testi {
+  background:#111;
+  padding:25px;
+  border-radius:14px;
+  border:1px solid #333;
+  box-shadow:0 0 10px #ff000033;
+}
+.testi strong { color:#ff4d4d; }
+/* PRICING */
+.pricing { background: #0d0d0d; padding: 80px 20px; }
+.pricing h3 { text-align:center; font-size:34px; color:#4da6ff; margin-bottom:40px; }
+table { width:90%; max-width:850px; margin:auto; border-collapse:collapse; }
+th,td { border:1px solid #333; padding:15px; }
+th { background:#111; }
+td { background:#181818; }
+/* FOOTER */
+footer { text-align:center; padding:40px; background:#000; border-top:1px solid #222; }
+footer div { margin:10px 0; font-size:18px; }
+/* WHATSAPP */
+.whatsapp { position:fixed; bottom:25px; right:25px; background:#25D366; color:white; padding:15px 20px; border-radius:50px; text-decoration:none; font-size:18px; font-weight:bold; box-shadow:0 0 10px #25D366; }
+  nav {
+    justify-content: flex-start;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>CrisTech</h1>
+  <span class="menu-btn" onclick="toggleMenu()">☰</span>
+  <nav>
+    <a href="#servicios">Servicios</a>
+    <a href="#testimonios">Testimonios</a>
+    <a href="#precios">Precios</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+<section class="hero">
+  <div>
+    <h2>Soluciones Técnicas Profesionales</h2>
+    <p>Formateo, instalación de Windows, drivers, software y juegos. Servicio rápido, seguro y garantizado.</p>
+  </div>
+</section>
+<section id="servicios" class="services reveal">
+  <h3>Servicios Disponibles</h3>
+  <div class="cards">
+    <div class="card">Formateo + Windows</div>
+    <div class="card">Instalación de drivers</div>
+    <div class="card">Optimización avanzada</div>
+    <div class="card">Instalación de software</div>
+    <div class="card">Instalación de juegos</div>
+    <div class="card">Mantenimiento completo</div>
+  </div>
+</section>
+<section id="testimonios" class="testimonials reveal">
+  <h3>Testimonios</h3>
+  <div class="testi-grid">
+    <div class="testi"><strong>Juan R.</strong><br>“Me formateó la laptop y quedó más rápida que nueva.”</div>
+    <div class="testi"><strong>Ana M.</strong><br>“Me instaló varios juegos pesados sin problemas. Full recomendado.”</div>
+    <div class="testi"><strong>Carlos T.</strong><br>“Servicio rápido, seguro y sabe lo que hace.”</div>
+  </div>
+</section>
+<section id="precios" class="pricing reveal">
+  <h3>Lista de Precios</h3>
+  <table>
+    <tr><th>Servicio</th><th>Precio (RD$)</th></tr>
+    <tr><td>Formateo + Windows + Drivers</td><td>800 - 1000</td></tr>
+    <tr><td>Instalación de juegos</td><td>150 - 300 c/u</td></tr>
+    <tr><td>Software esencial</td><td>100 - 200 c/u</td></tr>
+    <tr><td>Optimización Pro</td><td>300</td></tr>
+  </table>
+</section>
+<footer id="contacto" class="reveal">
+  <div>📱 Tel: 829-801-3484</div>
+  <div>© 2025 CrisTech - Servicios Técnicos</div>
+</footer>
+<a class="whatsapp" href="https://wa.me/18298013484" target="_blank">WhatsApp</a>
+<script>
+function toggleMenu(){
+  let headerEl = document.querySelector('header');
+  headerEl.classList.toggle('nav-open');
+  document.querySelectorAll('header nav a').forEach(a => {
+    a.onclick = ()=> headerEl.classList.remove('nav-open');
+  });
+}
+function revealOnScroll(){
+  document.querySelectorAll('.reveal').forEach(el=>{
+    let rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 50){ el.classList.add('active'); }
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
+</script>
+</body>
+</html>
